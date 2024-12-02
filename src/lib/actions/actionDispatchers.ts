@@ -34,6 +34,7 @@ import setLineHeight from './setLineHeight';
 import setGapMode from './setGapMode';
 import setLinkProps from './setLinkProps';
 import setDoublePage from './setDoublePage';
+import navigateToId from './navigateToId';
 
 /**
  * List of all action dispatchers
@@ -60,6 +61,7 @@ const actionDispatchers  = {
   navigateToPreviousChapter,
   navigateToNextChapter,
   navigateToPage,
+  navigateToId,
   setFitMode,
   setZoom,
   showSelectionMenu,

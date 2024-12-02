@@ -527,6 +527,10 @@ export interface FlowState {
    * Flow content chapter number
    */
   chapterNumber: number;
+  /**
+   * Flow content ids to position
+   */
+  positionById: Map<string, number>;
 }
 
 /**

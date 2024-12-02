@@ -9,6 +9,7 @@ const defaultFlow: DefaultFlowState = {
   lineHeight: 1.5,
   textAlign: null,
   snaps: new Array<number>(),
+  positionById: new Map<string, number>(),
   columnWidth: 0,
   totalColumnWidth: 0,
   totalColumns: 0,

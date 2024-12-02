@@ -432,6 +432,11 @@ div.rg-content-wrapper #rg-content-placeholder *::selection {
   column-width: var(--column-width);
 }
 
+.rg-flow-layout.rg-horizontal-scroll.rg-accessible #rg-content-placeholder [id],
+.rg-flow-layout.rg-horizontal-scroll.rg-accessible #rg-content-placeholder [data-id] {
+  break-inside: avoid-column;
+}
+
 .rg-flow-layout div#rg-content-placeholder * {
   line-height: var(--line-height) !important;
 }

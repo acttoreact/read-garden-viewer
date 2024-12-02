@@ -102,6 +102,7 @@ const recalculate = async (state: State): Promise<Partial<State>> => {
           .reverse();
         const positionBySlug = new Map<string, number>();
         const slugByPosition = new Map<number, string>();
+        const positionById = new Map<string, number>();
 
         let lastPosition: number | null = null;
         let labelsCount = 0;
@@ -145,6 +146,23 @@ const recalculate = async (state: State): Promise<Partial<State>> => {
           minTotalWidth = Math.max(minTotalWidth, position);
         });
 
+        contentPlaceholderNode!.querySelectorAll('[id],[data-id]').forEach((item) => {
+          const element = item as HTMLElement;
+          const rawPosition = element.getBoundingClientRect().left;
+          const contentWrapperPosition = clientToContentWrapperLeft(rawPosition);
+          const position = columnsPositions.find(
+            (p, i) => i % columnsInViewport === 0 && p < contentWrapperPosition,
+          );
+          if (position !== undefined) {
+            if (element.id) {
+              positionById.set(element.id, position);
+            }
+            if (element.dataset.id) {
+              positionById.set(element.dataset.id, position);
+            }
+          }
+        });
+
         if (lastLabel) {
           let position = lastPosition!;
           for (let i = labelsCount + 1, l = totalColumns; i <= l; i++) {
@@ -184,6 +202,7 @@ const recalculate = async (state: State): Promise<Partial<State>> => {
           columnGap,
           positionBySlug,
           slugByPosition,
+          positionById,
           lastPosition: lastPosition!,
         });
 
@@ -207,6 +226,7 @@ const recalculate = async (state: State): Promise<Partial<State>> => {
 
         const positionBySlug = new Map<string, number>();
         const slugByPosition = new Map<number, string>();
+        const positionById = new Map<string, number>();
 
         let lastPosition = 0;
 
@@ -220,6 +240,18 @@ const recalculate = async (state: State): Promise<Partial<State>> => {
           lastPosition = position;
         });
 
+        contentPlaceholderNode!.querySelectorAll('[id],[data-id]').forEach((item) => {
+          const element = item as HTMLElement;
+          const rawPosition = element.getBoundingClientRect().top - marginTop;
+          const position = clientToContentWrapperTop(rawPosition);
+          if (element.id) {
+            positionById.set(element.id, position);
+          }
+          if (element.dataset.id) {
+            positionById.set(element.dataset.id, position);
+          }
+        });
+
         const totalHeight = contentPlaceholderNode!.getBoundingClientRect().height / state.scale;
 
         resolve({
@@ -229,6 +261,7 @@ const recalculate = async (state: State): Promise<Partial<State>> => {
           lastPosition,
           positionBySlug,
           slugByPosition,
+          positionById,
         });
 
         setCSSProperty('scroll-height', `${totalHeight}px`);

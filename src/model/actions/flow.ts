@@ -80,6 +80,17 @@ export interface NavigateToPreviousChapter extends Action {
 }
 
 /**
+ * Navigates to any specific id (works for id or data-id)
+ */
+export interface NavigateToId extends Action {
+  type: 'navigateToId';
+  /**
+   * Element's id or data-id
+   */
+  id: string;
+}
+
+/**
  * Actions for FlowLayout
  */
 export type FlowActions =
@@ -90,4 +101,5 @@ export type FlowActions =
   | SetFontFamily
   | SetTextAlign
   | NavigateToNextChapter
-  | NavigateToPreviousChapter;
+  | NavigateToPreviousChapter
+  | NavigateToId;
