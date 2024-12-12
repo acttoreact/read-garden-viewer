@@ -10,6 +10,10 @@ const highlightTerms = (terms: string[]): void => {
   const { contentPlaceholderNode, searchTermsHighlightsNode, layout } = getState();
   if (searchTermsHighlightsNode && terms.length) {
     if (contentPlaceholderNode) {
+      contentPlaceholderNode.removeAttribute('data-highlighted');
+      contentPlaceholderNode.querySelectorAll('[data-highlighted]').forEach((element) => {
+        element.removeAttribute('data-highlighted');
+      });
       const ranges = getRangesRecursively(contentPlaceholderNode, terms, layout !== 'fixed');
       drawHighlights(searchTermsHighlightsNode, ranges, layout === 'fixed');
       updateState({ searchRanges: ranges });
