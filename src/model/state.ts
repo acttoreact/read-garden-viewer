@@ -480,10 +480,6 @@ export interface FlowState {
    */
   layout: LayoutTypes.Flow;
   /**
-   * Needs to recalculate pagination
-   */
-  invalidatedPagination?: boolean;
-  /**
    * Current font size (pixels)
    */
   fontSize: number;
