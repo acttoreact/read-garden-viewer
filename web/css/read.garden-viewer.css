@@ -591,6 +591,7 @@ div.rg-highlights-layer > div {
   border: none;
   background-color: var(--highlighter-color);
   pointer-events: var(--highlights-pointer-events);
+  mix-blend-mode: multiply;
 }
 
 .rg-dark-theme div.rg-highlights-layer > div {
