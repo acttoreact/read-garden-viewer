@@ -5,7 +5,10 @@ const setHighlighterColor: ActionDispatcher<SetHighlighterColor> = async ({ stat
   const { highlightersLayers, currentUserHighlights } = state;
   const highlighterLayer = highlightersLayers.get(action.key);
   if (highlighterLayer) {
-    highlighterLayer.setAttribute('style', `--highlighter-color: #${action.color}`);
+    highlighterLayer.setAttribute(
+      'style',
+      `--highlighter-color: #${action.color}; display: var(--highlighter-${action.key}-display, block)`,
+    );
   }
   const newUserHighlights = new Map<string, UserHighlightInfo>();
   currentUserHighlights.forEach((highlight, key) => {
